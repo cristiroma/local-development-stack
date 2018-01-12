@@ -1,0 +1,33 @@
+version: '2.0'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+    - "127.0.0.1:80:80"
+    volumes:
+    - ./conf-nginx/globals.conf:/etc/nginx/conf.d/globals.conf
+    - ./conf-nginx/bioland.conf:/etc/nginx/conf.d/bioland.conf
+
+    environment:
+      TZ: "Europe/Bucharest"
+
+  php7:
+    build: image-php7
+    container_name: php7
+    restart: always
+    volumes:
+    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
+
+  db:
+    image: mariadb
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+    - "127.0.0.1:3306:3306"
+    volumes:
+    - ./conf-mysqld/server.cnf:/etc/mysql/conf.d/server.cnf
+    - ./conf-mysqld/client.cnf:/etc/mysql/conf.d/client.cnf
