@@ -2,7 +2,7 @@ FROM php:7.1-fpm
 RUN apt-get update && apt-get install -y \
 		libfreetype6-dev \
 		libjpeg62-turbo-dev \
-		#libmariadbclient-dev \
+		libmariadb-client-lgpl-dev \
 		libmcrypt-dev \
 		libmemcached-dev \
 		libcurl4-gnutls-dev \
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install -j$(nproc) intl \
 	&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
 	&& docker-php-ext-install -j$(nproc) ldap \
-#	&& docker-php-ext-install -j$(nproc) mysqli \
+	&& docker-php-ext-install -j$(nproc) mysqli \
 	&& docker-php-ext-install -j$(nproc) opcache \
-#	&& docker-php-ext-install -j$(nproc) pdo_mysql \
+	&& docker-php-ext-install -j$(nproc) pdo_mysql \
 	&& docker-php-ext-install -j$(nproc) xmlrpc
