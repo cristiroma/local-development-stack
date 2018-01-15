@@ -10,6 +10,7 @@ services:
     volumes:
     - ./conf-nginx/globals.conf:/etc/nginx/conf.d/globals.conf
     - ./conf-nginx/bioland.conf:/etc/nginx/conf.d/bioland.conf
+    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
 
     environment:
       TZ: "Europe/Bucharest"
