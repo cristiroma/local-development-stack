@@ -5,12 +5,17 @@ services:
     image: nginx:latest
     container_name: nginx
     restart: always
+    depends_on:
+    - php7
+    - php56
     ports:
     - "127.0.0.1:80:80"
     volumes:
     - ./conf-nginx/globals.conf:/etc/nginx/conf.d/globals.conf
     - ./conf-nginx/bioland.conf:/etc/nginx/conf.d/bioland.conf
+    - ./conf-nginx/project-eu-osha-ncw.conf:/etc/nginx/conf.d/project-eu-osha-ncw.conf
     - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
+    - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
 
     environment:
       TZ: "Europe/Bucharest"
@@ -19,8 +24,19 @@ services:
     build: image-php7
     container_name: php7
     restart: always
+    depends_on:
+    - db
     volumes:
     - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
+
+  php56:
+    build: image-php56
+    container_name: php56
+    restart: always
+    depends_on:
+    - db
+    volumes:
+    - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
 
   db:
     image: mariadb
