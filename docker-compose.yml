@@ -48,3 +48,10 @@ services:
     volumes:
     - ./conf-mysqld/server.cnf:/etc/mysql/conf.d/server.cnf
     - ./conf-mysqld/client.cnf:/etc/mysql/conf.d/client.cnf
+
+  mail:
+    image: eaudeweb/mailtrap
+    container_name: mailtrap
+    ports:
+    - "127.0.0.1:25:25"
+    - "127.0.0.1:81:80"
