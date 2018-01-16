@@ -20,7 +20,9 @@ Benefits:
 - This setup was tested on Fedora 26/27. If you wonder wether it works on your box, read on and get your hands dirty.
 
 
-### Step 1. Clone this repository on your computer and create a local `docker-compose.override.yml` file to customize your local docker-compose with local paths and port preferences. A typical file looks like this:
+### Step 1. Clone this repository
+
+Use `git` to checkout this repository on your localcomputer and inside create a new `docker-compose.override.yml` file to customize your local setup to use your specific local paths and port preferences (read step 3 below). A typical file looks like this:
 
 ```yml
 
