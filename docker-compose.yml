@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
-    restart: always
+#    restart: always
     depends_on:
     - php7
     - php56
@@ -23,7 +23,7 @@ services:
   php7:
     build: image-php7
     container_name: php7
-    restart: always
+#    restart: always
     depends_on:
     - db
     volumes:
@@ -32,7 +32,7 @@ services:
   php56:
     build: image-php56
     container_name: php56
-    restart: always
+#    restart: always
     depends_on:
     - db
     volumes:
@@ -41,6 +41,7 @@ services:
   db:
     image: mariadb
     container_name: db
+#    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "root"
     ports:
@@ -52,6 +53,7 @@ services:
   mail:
     image: eaudeweb/mailtrap
     container_name: mailtrap
+#    restart: always
     ports:
     - "127.0.0.1:25:25"
     - "127.0.0.1:81:80"
