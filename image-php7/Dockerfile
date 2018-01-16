@@ -23,3 +23,5 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install -j$(nproc) opcache \
 	&& docker-php-ext-install -j$(nproc) pdo_mysql \
 	&& docker-php-ext-install -j$(nproc) xmlrpc
+
+COPY php.ini /usr/local/etc/php
