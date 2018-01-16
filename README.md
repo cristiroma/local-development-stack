@@ -1,4 +1,4 @@
-# Local Docker development stack for PHP projects
+# Docker development stack for PHP projects using Nginx, PHP-FPM and MySQL
 
 This Nginx/PHP/MySQL stack is super-easy to setup, and it could replace entirely your local typical LAMP setup, or work in parallel on alternative ports.
 
