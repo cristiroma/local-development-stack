@@ -8,14 +8,12 @@ services:
     depends_on:
     - php7
     - php56
-    ports:
-    - "127.0.0.1:80:80"
+#    ports:
+#    - "127.0.0.1:80:80"
     volumes:
     - ./conf-nginx/globals.conf:/etc/nginx/conf.d/globals.conf
     - ./conf-nginx/bioland.conf:/etc/nginx/conf.d/bioland.conf
     - ./conf-nginx/project-eu-osha-ncw.conf:/etc/nginx/conf.d/project-eu-osha-ncw.conf
-    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
-    - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
 
     environment:
       TZ: "Europe/Bucharest"
@@ -26,8 +24,6 @@ services:
 #    restart: always
     depends_on:
     - db
-    volumes:
-    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
 
   php56:
     build: image-php56
@@ -35,8 +31,6 @@ services:
 #    restart: always
     depends_on:
     - db
-    volumes:
-    - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
 
   db:
     image: mariadb
@@ -44,8 +38,8 @@ services:
 #    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "root"
-    ports:
-    - "127.0.0.1:3306:3306"
+#    ports:
+#    - "127.0.0.1:3306:3306"
     volumes:
     - ./conf-mysqld/server.cnf:/etc/mysql/conf.d/server.cnf
     - ./conf-mysqld/client.cnf:/etc/mysql/conf.d/client.cnf
@@ -54,6 +48,6 @@ services:
     image: eaudeweb/mailtrap
     container_name: mailtrap
 #    restart: always
-    ports:
-    - "127.0.0.1:25:25"
-    - "127.0.0.1:81:80"
+#    ports:
+#    - "127.0.0.1:25:25"
+#    - "127.0.0.1:81:80"
