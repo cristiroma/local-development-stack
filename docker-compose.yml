@@ -5,17 +5,23 @@ services:
     image: nginx:latest
     container_name: nginx
     depends_on:
-    - php7
+    - php71
     - php56
 
     environment:
       TZ: "Europe/Bucharest"
 
-  php7:
-    build: image-php7
-    container_name: php7
+  php71:
+    build: image-php71
+    container_name: php71
     depends_on:
     - db
+
+#  php72:
+#    build: image-php72
+#    container_name: php72
+#    depends_on:
+#    - db
 
   php56:
     build: image-php56

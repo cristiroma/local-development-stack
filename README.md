@@ -36,7 +36,7 @@ services:
     - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
     - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
 
-  php7:
+  php71:
     volumes:
     - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
 
@@ -69,7 +69,7 @@ If you wish to use local URLs for your projects, like http://my-best-project.loc
 
 TODO - Add more details on how to configure paths in nginx, settings.php in Drupal etc.
 
-1. Create the `Nginx` .conf virtual host file for your project by using an existing sample one. Inside make sure you use the proper path for `root` directive and also route the requests to the appropriate `FPM` interpreter (`fastcgi_pass php7:9000;`).
+1. Create the `Nginx` .conf virtual host file for your project by using an existing sample one. Inside make sure you use the proper path for `root` directive and also route the requests to the appropriate `FPM` interpreter (`fastcgi_pass php71:9000;`).
 
 2. Create the volume mappings between local host paths and container paths in the `docker.override.yml`, for example:
 
@@ -78,12 +78,12 @@ TODO - Add more details on how to configure paths in nginx, settings.php in Drup
     volumes:
     - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
 
-  php7:
+  php71:
     volumes:
     - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
 ```
 
-**Important** The mappings must be done both in `nginx` and `php7` because `nginx` is going to serve the static files under the directory, while the `php7` container will execute the PHP scripts coming from nginx's FCGI request. Technically, nginx will path the absolute path to the PHP script thus is vital to have identical mappings inside both containers: (i.e. `/var/www/html/bioland`) and a correct `root /var/www/html/bioland;` set in `server` directive!
+**Important** The mappings must be done both in `nginx` and `php71` because `nginx` is going to serve the static files under the directory, while the `php71` container will execute the PHP scripts coming from nginx's FCGI request. Technically, nginx will path the absolute path to the PHP script thus is vital to have identical mappings inside both containers: (i.e. `/var/www/html/bioland`) and a correct `root /var/www/html/bioland;` set in `server` directive!
 
 3. Database configuration. The hostname of MySQL server is `db` so in your Drupal, WordPress etc. system make sure you set the correct `hostname` for the MySQL connection string. Also the default MySQL user is `root` and password is `root`.
 
