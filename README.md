@@ -54,6 +54,7 @@ services:
     - "127.0.0.1:81:80"
 ```
 
+
 ### Step 2. Configure your projects' local hostnames in /etc/hosts
 
 If you wish to use local URLs for your projects, like http://my-best-project.local, open `/etc/hosts` and add lines for each project like this:
@@ -65,11 +66,12 @@ If you wish to use local URLs for your projects, like http://my-best-project.loc
 
 *Note:* On Windows open the file `C:\Windows\system32\drivers\etc\hosts` as `Administrator` in `Notepad` and edit it as above, but don't take my word for it.
 
-### Step 2. Configure your projects
+
+### Step 3. Configure your projects
 
 TODO - Add more details on how to configure paths in nginx, settings.php in Drupal etc.
 
-1. Create the `Nginx` .conf virtual host file for your project by using an existing sample one. Inside make sure you use the proper path for `root` directive and also route the requests to the appropriate `FPM` interpreter (`fastcgi_pass php71:9000;`).
+1. Create the `nginx` .conf virtual host file for your project by using an existing sample one (i.e. copy `template-project.conf` to `project-NAME.conf`). Edit the file and configure proper fields (`root` directive etc.) and also route the requests to the appropriate `FPM` interpreter (`fastcgi_pass php71:9000;`).
 
 2. Create the volume mappings between local host paths and container paths in the `docker.override.yml`, for example:
 
@@ -88,7 +90,7 @@ TODO - Add more details on how to configure paths in nginx, settings.php in Drup
 3. Database configuration. The hostname of MySQL server is `db` so in your Drupal, WordPress etc. system make sure you set the correct `hostname` for the MySQL connection string. Also the default MySQL user is `root` and password is `root`.
 
 
-### Step 3. Start the stack
+### Step 4. Start the stack
 
 Use `docker-compose up` on your console and see what's happening. If you follow the configuration suggested above, you can:
 
