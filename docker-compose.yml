@@ -1,6 +1,11 @@
 version: '2.0'
 
 services:
+
+  varnish4:
+    image: eeacms/varnish:4.1-3.1
+    container_name: varnish4
+
   nginx:
     image: nginx:latest
     container_name: nginx

@@ -97,13 +97,34 @@ Use `docker-compose up` on your console and see what's happening. If you follow 
 1. Access your local projects at http://my-best-project.local
 2. Access the local email (mailtrap) at http://localhost:81 (default config)
 
-## Switch your project between PHP 5.x and 7.x
 
-TODO - *Hint* edit nginx virtual host .conf file `fastcgi_pass` directive
+# Frequently Asked Questions
 
+1. How do I switch my project between PHP 5.x and 7.x?
+
+Edit the `nginx` virtual host .conf file and set the `fastcgi_pass` directive to the appropriate container (i.e. `php56`, `php71`, `php72`).
+
+2. How to I use the Varnish cache?
+
+In `docker-compose.override.yml` you can configure the Varnish 4.x container to listen on host port, like this:
+
+Then requests are cached through the Vanrnish.
+
+**NB**: The default varnish VLC is quite empty, and probably, does not properly work with any CMS system. If you wish to use another VCL file, just mount it from the `docker-compose.override.yml` as following:
+
+```
+  varnish4:
+    ports:
+    - "127.0.0.1:81:6081"
+    volumes:
+    - ./conf-varnish4/drupal8.vcl:/etc/varnish/conf.d/default.vcl
+
+```
+
+So you're accessing uncached website at http://myproject.local, and http://myproject.local:82 cached through Varnish, no changes required. How simple is that!
 
 ## Contribute
 
-If you have issues, ideas add a ticket here - even better - make a pull-request!
+If you have issues, ideas add a ticket here - even better - make a pull request!
 
 **Happy coding!**
