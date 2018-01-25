@@ -19,7 +19,7 @@ backend appserver {
 
 # Enable additional back-ends, see load-balancing below
 #backend appserver2 {
-#  .host = "54.254.146.25";
+#  .host = "nginx2";
 #  .port = "80";
 #  .connect_timeout = 300s;
 #  .between_bytes_timeout = 300s;
