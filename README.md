@@ -123,6 +123,18 @@ Then requests are cached through the Vanrnish.
 
 So you're accessing uncached website at http://myproject.local, and http://myproject.local:82 cached through Varnish, no changes required. How simple is that!
 
+3. How do I configure Tomcat?
+
+In the `docker-compose.override.yml` you configure the Tomcat container to add your custom applications
+
+```
+  tomcat7:
+    ports:
+    - "127.0.0.1:8080:8080"
+    volumes:
+    - /path/to/your/application.war:/usr/local/tomcat/webapps/application.war
+```
+
 ## Contribute
 
 If you have issues, ideas add a ticket here - even better - make a pull request!

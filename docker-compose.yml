@@ -34,6 +34,10 @@ services:
     depends_on:
     - db
 
+  tomcat7:
+    image: library/tomcat:7.0-jre8
+    container_name: tomcat7
+
   db:
     image: mariadb
     container_name: db
