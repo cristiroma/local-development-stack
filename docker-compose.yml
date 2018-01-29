@@ -47,6 +47,19 @@ services:
     - ./conf-mysqld/server.cnf:/etc/mysql/conf.d/server.cnf
     - ./conf-mysqld/client.cnf:/etc/mysql/conf.d/client.cnf
 
+  solr:
+    image: library/solr:6
+    container_name: solr
+    volumes:
+      - /home/cristiroma/Work/infrastructure/local-dev/solr/cores:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - informea
+
   mail:
     image: eaudeweb/mailtrap
     container_name: mailtrap
+
+volumes:
+  data:
