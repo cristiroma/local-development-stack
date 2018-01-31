@@ -51,7 +51,7 @@ services:
     image: library/solr:6
     container_name: solr6
     volumes:
-      - ./conf-solr/6:/opt/solr/server/solr
+      - ./conf-solr/6/cores:/opt/solr/server/solr/cores
 
   mail:
     image: eaudeweb/mailtrap
