@@ -1,6 +1,16 @@
 # Docker development stack for PHP projects using Nginx, PHP-FPM and MySQL
 
-This Nginx/PHP/MySQL stack is super-easy to setup, and it could replace entirely your local typical LAMP setup, or work in parallel on alternative ports.
+This stack is super-easy to setup, and it could replace entirely your local typical LAMP setup, or work in parallel on alternative ports.
+
+Current component list:
+
+1. nginx HTTP server
+2. Varnish server
+3. PHP-FPM 5 & 7
+4. MySQL
+5. Mailtrap to debug emails
+6. Apache Tomcat 7 to integrate with J2EE apps
+7. Apache Solr 6 full-text search engine
 
 Benefits:
 
@@ -134,6 +144,14 @@ In the `docker-compose.override.yml` you configure the Tomcat container to add y
     volumes:
     - /path/to/your/application.war:/usr/local/tomcat/webapps/application.war
 ```
+
+4. Solr configuration
+
+To create a core for Solr 6, **before starting the stack** to the following:
+
+  - go to conf-solr/6/ and execute `sudo ./create-core.sh <template-name> <core-name>`, where `<template-name>` is one of the directory names beneath the `templates/` directory.
+
+  NB: When the stack is started, you need to restart it to pick up the new core.
 
 ## Contribute
 
