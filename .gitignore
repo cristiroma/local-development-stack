@@ -1,4 +1,4 @@
 # Docker
 docker-compose.override.yml
 conf-nginx/project-*.conf
-conf-solr/cores/6/cores
+conf-solr/6/cores
