@@ -32,36 +32,59 @@ Benefits:
 
 ### Step 1. Clone this repository
 
-Use `git` to checkout this repository on your localcomputer and inside create a new `docker-compose.override.yml` file to customize your local setup to use your specific local paths and port preferences (read step 3 below). A typical file looks like this:
+Use `git` to checkout this repository on your localcomputer and inside create a new `docker-compose.override.yml` file to customize your local setup to use your specific local paths and port preferences (read step 3 below). 
+
+A typical file, setup with two PHP projects, one for PHP 5 and one for PHP 7 looks like this:
 
 ```yml
 
 version: '2.0'
 
 services:
+
+  varnish4:
+    ports:
+    - "127.0.0.1:82:6081"
+    volumes:
+    - ./conf-varnish4/drupal8.vcl:/etc/varnish/conf.d/default.vcl
+
   nginx:
     ports:
     - "127.0.0.1:80:80"
     volumes:
-    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
-    - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
+    - ./conf-nginx/globals.conf:/etc/nginx/conf.d/globals.conf
+    - ./conf-nginx/project1.conf:/etc/nginx/conf.d/project1.conf
+    - ./conf-nginx/project2.conf:/etc/nginx/conf.d/project2.conf
+    - /home/user/Work/project1:/var/www/html/project1
+    - /home/user/Work/project2:/var/www/html/project2
 
   php71:
     volumes:
-    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
+    - /home/user/Work/project1:/var/www/html/project1
 
   php56:
     volumes:
-    - /home/cristiroma/Work/eu-osha/ncw:/var/www/html/ncw
+    - /home/user/Work/project2:/var/www/html/project2
+
+  tomcat7:
+    ports:
+    - "127.0.0.1:8080:8080"
+    volumes:
+    - /home/user/Work/projectJava/target/service.war:/usr/local/tomcat/webapps/service.war
 
   db:
     ports:
     - "127.0.0.1:3306:3306"
 
+  solr6:
+    ports:
+    - "127.0.0.1:8983:8983"
+
   mail:
     ports:
     - "127.0.0.1:25:25"
     - "127.0.0.1:81:80"
+
 ```
 
 
@@ -88,11 +111,11 @@ TODO - Add more details on how to configure paths in nginx, settings.php in Drup
 ```yml
   nginx:
     volumes:
-    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
+    - /home/user/Work/project1:/var/www/html/project1
 
   php71:
     volumes:
-    - /home/cristiroma/Work/cbd/bioland:/var/www/html/bioland
+    - /home/user/Work/project2:/var/www/html/project2
 ```
 
 **Important** The mappings must be done both in `nginx` and `php71` because `nginx` is going to serve the static files under the directory, while the `php71` container will execute the PHP scripts coming from nginx's FCGI request. Technically, nginx will path the absolute path to the PHP script thus is vital to have identical mappings inside both containers: (i.e. `/var/www/html/bioland`) and a correct `root /var/www/html/bioland;` set in `server` directive!
