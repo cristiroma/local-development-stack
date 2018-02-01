@@ -176,6 +176,10 @@ To create a core for Solr 6, **before starting the stack** to the following:
 
   NB: When the stack is started, you need to restart it to pick up the new core.
 
+5. How do I debug Varnish requests?
+
+  Keep in mind that BAN or PURGE requests are made from the `PHP-FPM` containers to the `VARNISH` container and you should use the Host IP in purger configuration instead of the project's domain. The `PHP-FPM` host machine has no knowledge about the front-end's domain handling and requests will FAIL.
+
 ## Contribute
 
 If you have issues, ideas add a ticket here - even better - make a pull request!
