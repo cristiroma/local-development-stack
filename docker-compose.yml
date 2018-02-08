@@ -30,7 +30,7 @@ services:
       TZ: "Europe/Bucharest"
 
   php71:
-    build: image-php71
+    image: cristiroma/php-fpm
     container_name: php71
     depends_on:
     - db
