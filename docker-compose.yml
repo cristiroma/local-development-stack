@@ -38,13 +38,13 @@ services:
     - ./lib/request-debugger:/var/www/html/varnish
 
 #  php72:
-#    build: image-php72
+#    image: cristiroma/php-fpm:7.2
 #    container_name: php72
 #    depends_on:
 #    - db
 
   php56:
-    build: image-php56
+    image: cristiroma/php-fpm:5.6
     container_name: php56
     depends_on:
     - db
