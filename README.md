@@ -32,7 +32,7 @@ Benefits:
 
 ### Step 1. Clone this repository
 
-Use `git` to checkout this repository on your localcomputer and inside create a new `docker-compose.override.yml` file to customize your local setup to use your specific local paths and port preferences (read step 3 below). 
+Use `git` to checkout this repository on your localcomputer and inside create a new `docker-compose.override.yml` from the docker-compose file(you may remove all the settings you don't require and leave only nginx to customize your local setup to use your specific local paths and port preferences (read step 3 below). 
 
 A typical file, setup with two PHP projects, one for PHP 5 and one for PHP 7 looks like this:
 
@@ -120,12 +120,18 @@ TODO - Add more details on how to configure paths in nginx, settings.php in Drup
 
 **Important** The mappings must be done both in `nginx` and `php71` because `nginx` is going to serve the static files under the directory, while the `php71` container will execute the PHP scripts coming from nginx's FCGI request. Technically, nginx will path the absolute path to the PHP script thus is vital to have identical mappings inside both containers: (i.e. `/var/www/html/bioland`) and a correct `root /var/www/html/bioland;` set in `server` directive!
 
+- Change the docroot/default/sites/default.settings.php to settings.php and configure the database environment connection.
+
 3. Database configuration. The hostname of MySQL server is `db` so in your Drupal, WordPress etc. system make sure you set the correct `hostname` for the MySQL connection string. Also the default MySQL user is `root` and password is `root`.
 
 
 ### Step 4. Start the stack
 
-Use `docker-compose up` on your console and see what's happening. If you follow the configuration suggested above, you can:
+- install docker-compose.
+
+- As root, use `docker-compose up` on your console and see what's happening. If you try any of these commands from a directory other than the directory that contains a Docker container and .yml file, it will complain and not show you the containers:
+
+If you follow the configuration suggested above, you can:
 
 1. Access your local projects at http://my-best-project.local
 2. Access the local email (mailtrap) at http://localhost:81 (default config)
