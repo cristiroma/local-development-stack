@@ -1,0 +1,41 @@
+version: '2.0'
+
+services:
+
+  nginx:
+    ports:
+      - "127.0.0.1:80:80"
+    volumes:
+      - ./conf-nginx/my-php7-project.conf:/etc/nginx/conf.d/my-php7-project.conf
+      - /Users/cristiroma/Work/php7-project/:/var/www/html/php7-project/
+      - ./conf-nginx/my-php5-project.conf:/etc/nginx/conf.d/my-php5-project.conf
+      - /Users/cristiroma/Work/php5-project/:/var/www/html/php5-project/
+
+  php71:
+    volumes:
+      - /Users/cristiroma/Work/php7-project/:/var/www/html/php5-project/
+
+  php56:
+    volumes:
+      - /Users/cristiroma/Work/php5-project/:/var/www/html/php5-project/
+
+  db:
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+      - "127.0.0.1:3306:3306"
+
+#  solr6:
+#    image: library/solr:6
+#    container_name: solr6
+#    volumes:
+#      - ./conf-solr/6/cores:/opt/solr/server/solr/cores
+#    ports:
+#    - "127.0.0.1:8983:8983"
+
+#  logging:
+#    image: logentries/docker-logentries
+
+  mail:
+    ports:
+      - "127.0.0.1:8025:80"

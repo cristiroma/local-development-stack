@@ -2,74 +2,28 @@ version: '2.0'
 
 services:
 
-  nginx-varnish:
-    image: nginx:latest
-    container_name: nginx-varnish
-    volumes:
-    - ./conf-nginx/globals.conf:/etc/nginx/conf.d/globals.conf
-    - ./conf-nginx/varnish-frontend.conf:/etc/nginx/conf.d/default-vh.conf
-    depends_on:
-      - varnish4
-
-  varnish4:
-    image: eeacms/varnish:4.1-3.1
-    container_name: varnish4
-    depends_on:
-    - nginx
-
   nginx:
-    image: nginx:latest
-    container_name: nginx
-    depends_on:
-    - php71
-    - php56
-    volumes:
-    - ./conf-nginx/request-debugger.conf:/etc/nginx/conf.d/request-debugger.conf
-    - ./lib/request-debugger:/var/www/html/varnish
-    environment:
-      TZ: "Europe/Bucharest"
+    container_name: ls_frontend
+    image: nginx:1.13
 
   php71:
-    image: cristiroma/php-fpm
-    container_name: php71
+    container_name: ls_php71
+    image: eaudeweb/php-fpm:7.1-1.0.1
     depends_on:
-    - db
-    volumes:
-    - ./lib/request-debugger:/var/www/html/varnish
-
-#  php72:
-#    image: cristiroma/php-fpm:7.2
-#    container_name: php72
-#    depends_on:
-#    - db
+      - db
 
   php56:
-    image: cristiroma/php-fpm:5.6
-    container_name: php56
+    container_name: ls_php56
+    image: eaudeweb/php-fpm:5.6-1.0.1
     depends_on:
-    - db
-    volumes:
-    - ./lib/request-debugger:/var/www/html/varnish
-
-  tomcat7:
-    image: library/tomcat:7.0-jre8
-    container_name: tomcat7
+      - db
 
   db:
-    image: mariadb
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: "root"
+    container_name: ls_db
+    image: mariadb:10.3
     volumes:
-    - ./conf-mysqld/server.cnf:/etc/mysql/conf.d/server.cnf
-    - ./conf-mysqld/client.cnf:/etc/mysql/conf.d/client.cnf
-
-  solr6:
-    image: library/solr:6
-    container_name: solr6
-    volumes:
-      - ./conf-solr/6/cores:/opt/solr/server/solr/cores
+      - ./conf-mysqld/server.cnf:/etc/mysql/conf.d/server.cnf
 
   mail:
+    container_name: ls_mail
     image: eaudeweb/mailtrap
-    container_name: mailtrap
