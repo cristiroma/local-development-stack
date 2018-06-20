@@ -5,6 +5,9 @@ services:
   nginx:
     container_name: ls_frontend
     image: nginx:1.13
+    depends_on:
+      - php56
+      - php71
 
   php71:
     container_name: ls_php71
